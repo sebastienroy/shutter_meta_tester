@@ -28,10 +28,14 @@ Where
   - The opening is repeated a lot, may that introduce a flaw in the measure ?   
 
 # LED pulse method
+
 ## Description
+
 The faster shutter speed we want to measure is 1/4000s = 250 micro seconds.  
 Because the response time of an LED is very fast (about 10 nano seconds), it is possible produce a very well controlled light pulse using a microcontroler that lights on and off an LED. The pulse duration precision is induced by the precision of the microcontroler that controls the LED.  
+
 ## Pros/cons
+
 - The pros
   - Easy to build
   - Easy to control the pulse duration
@@ -39,6 +43,6 @@ Because the response time of an LED is very fast (about 10 nano seconds), it is 
   - Does not take into account the physical phenomenos induces by a physical shutter. Is that really a con ?     
 
 
-## Schema  
+## Schema  
 
 ![Tester schema](design/shutter_meta_tester_bb.png)
