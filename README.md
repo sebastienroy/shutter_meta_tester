@@ -26,6 +26,33 @@ Where
   - A lot of hardware to buy
   - A lot of hardware to control 
   - The opening is repeated a lot, may that introduce a flaw in the measure ?   
+  
+## Schema
+We make the choice to control a wheel rotation using a stepper motor. The stepper motor has the advantage to be drivable very precisely, without any further regulation circuit. This stepper motor is controlled using an L298N board. This board is itself driven through the GPIO 14, 15, 16 and 17 of a Raspberry Pi Pico board.  
+We also add an SSD1306 display, connected on the I2C 0, GPIO 12 and 13, in order to display the current rotation speed of the stepper motor.  
+A push button, connected on GPIO 18, allows to start and stop the motor.  
+The whole stuff is powered using a 12V DC adapter. The 5V output of the L298N bard is used to power the microcontroler board.  
+The Rpi Pico has been chosen because it is cheap, available, efficient and fun : we can program it using MicroPython language (see [Rpi Pico MicroPython documentation](https://www.raspberrypi.com/documentation/microcontrollers/micropython.html))  
+The microPython code used to drive all that is here. 
+
+![Wheel control schema](design/WheelControl.png)
+
+## The Wheel
+
+We make the choice to use a 2.5rps rotation speed. This allow to have a well controlled speed. A strong torke at this speed ensures a great confidence on the speed accuracy.
+
+The camera manufacturer as ... recommend to adjust the shutter translation speed to 12ms for the whole distance (36mm). This means 3m/s.
+
+So we will build our wheel to get a rotating window with the same value for its linear speed
+
+This mean a wheel radius of : v = 2*pi*Rf  
+- v=3000mm/s
+- pi=atan(-1)
+- R=radius
+- f=2.5 s-1  
+
+Conclusion : the wheel radius **R=191mm**
+
 
 # LED pulse method
 
