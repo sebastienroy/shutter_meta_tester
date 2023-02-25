@@ -25,7 +25,6 @@ Where
 - The cons
   - A lot of hardware to buy
   - A lot of hardware to control 
-  - The opening is repeated a lot, may that introduce a flaw in the measure ?   
   
 ## Schema
 We make the choice to control a wheel rotation using a stepper motor. The stepper motor has the advantage to be drivable very precisely, without any further regulation circuit. This stepper motor is controlled using an L298N board. This board is itself driven through the GPIO 14, 15, 16 and 17 of a Raspberry Pi Pico board.  
@@ -39,9 +38,11 @@ The microPython code used to drive all that is here.
 
 ## The Wheel
 
-We make the choice to use a 2.5rps rotation speed. This allow to have a well controlled speed. A strong torke at this speed ensures a great confidence on the speed accuracy.
+![The wheel](design/Wheel.png)
 
-The camera manufacturer as ... recommend to adjust the shutter translation speed to 12ms for the whole distance (36mm). This means 3m/s.
+We make the choice to use a 2.5rps rotation speed. This allows to have a well controlled speed. A strong torke at this speed ensures a great confidence on the speed accuracy.
+
+The camera manufacturer as ... recommends to adjust the shutter translation speed to 12ms for the whole distance (36mm). This means 3m/s.
 
 So we will build our wheel to get a rotating window with the same value for its linear speed
 
@@ -53,6 +54,12 @@ This mean a wheel radius of : v = 2*pi*Rf
 
 Conclusion : the wheel radius **R=191mm**
 
+The [wheel](design/Wheel.png) is designed using FreeCad 0.20.2 and built using 3D printing.  
+It has a central hub, 6 spokes and a rim made of 6 parts. Each part of the rim has 2 open windows.  
+11 of the windows are completely masked. The last one has an opening in it that simulated the camera shutters.  
+In order to simulate a shutter speed of 1/1000th of a second, the distance between the two sides of the window shall be 3mm.
+
+![simulated shutter](design/ShutterMask.png)
 
 # LED pulse method
 
