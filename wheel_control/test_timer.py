@@ -1,8 +1,20 @@
 from machine import Pin, Timer, I2C
-from ssd1306 import SSD1306_I2C
+#from ssd1306 import SSD1306_I2C
 import utime
 
-tim = Timer()
+stepTimer = Timer()
+accelerationTimer = Timer()
+
+buttonPin = 18
+buttonState = 1
+
+currentSpeed = 0
+maxSpeed = 500
+
+accelerationFreq = 10
+accelerationStep = 10
+
+accelerationValue = 1
 
 #i2c = I2C(0, scl=Pin(21), sda=Pin(20), freq=400000)
 #oled = SSD1306_I2C(128, 64, i2c)
@@ -27,6 +39,8 @@ full_step_seq = [
             [0,1,0,1], # A/B/
             [1,0,0,1]] # AB/
 
+button = Pin(buttonPin, mode=Pin.IN, pull=Pin.PULL_UP)
+
 # begin
 led.value(1)
 
@@ -36,17 +50,70 @@ def step(timer):
         motorPins[pin].value(full_step_seq[current_step][pin])
     current_step = (current_step + 1) % 4
     
-speeds=[500]
-
-for speed in speeds:
-    tim.init(freq=speed, mode=Timer.PERIODIC, callback=step)
-    utime.sleep(10)
+def accelerate(timer):
+    global currentSpeed, accelerationValue, accelerationStep
+    currentSpeed = currentSpeed + accelerationValue * accelerationStep
+    if(currentSpeed <= 0):
+        currentSpeed = 0
+        accelerationValue = 0
+        accelerationTimer.deinit()
+        stepTimer.deinit()
+        for pin in range(4):
+            motorPins[pin].value(0)
+    elif(currentSpeed >= maxSpeed):
+        currentSpeed = maxSpeed
+        accelerationValue = 0
+        accelerationTimer.deinit()
+        
+    if(currentSpeed != 0):
+        stepTimer.init(freq=currentSpeed, mode=Timer.PERIODIC, callback=step)
     
+def setAcceleration(value):
+     global accelerationValue
+     accelerationValue = value
+     accelerationTimer.init(freq=accelerationFreq, mode=Timer.PERIODIC, callback=accelerate)       
+
+
+def checkButton():
+    global buttonState, accelerationValue, currentSpeed
+    currentState = button.value()
+    # if(currentState == 0 and currentState != buttonState):
+    #     if(accelerationValue == 0 and currentSpeed == maxSpeed):
+    #         setAcceleration(-1)
+    #     elif(accelerationValue == 0 and currentSpeed == 0):
+    #         setAcceleration(-1)
+    #     else:
+    #         setAcceleration(accelerationValue*-1)
+    
+    if(currentState == 0 and currentState != buttonState):
+        if(currentSpeed == 0):
+            setAcceleration(1)
+        elif(currentSpeed == maxSpeed):
+            setAcceleration(-1)
+        else:
+            setAcceleration(accelerationValue*-1)
+    
+    buttonState = currentState
+    
+def checkTest():
+    val=button.value()
+    led.value(val)
+    utime.sleep(1)
+
+led.value(1)
 
 
 
-utime.sleep(1)
-for pin in range(4):
-    motorPins[pin].value(0)
+while(True):
+    checkButton()
+    utime.sleep_ms(100)
+# accelerate
+#setAcceleration(1)
+
+#utime.sleep(15)
+
+# setAcceleration(-1, target=0)
+# utime.sleep(10)
+
 #end
 led.value(0)
