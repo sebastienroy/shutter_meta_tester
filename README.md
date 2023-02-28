@@ -62,7 +62,6 @@ Where
   
 ## Schema
 We make the choice to control a wheel rotation using a stepper motor. The stepper motor has the advantage to be drivable very precisely, without any further regulation circuit. This stepper motor is controlled using an L298N board. This board is itself driven through the GPIO 14, 15, 16 and 17 of a Raspberry Pi Pico board.  
-We also add an SSD1306 display, connected on the I2C 0, GPIO 12 and 13, in order to display the current rotation speed of the stepper motor.  
 A push button, connected on GPIO 18, allows to start and stop the motor.  
 The whole stuff is powered using a 12V DC adapter. The 5V output of the L298N bard is used to power the microcontroler board.  
 The Rpi Pico has been chosen because it is cheap, available, efficient and fun : we can program it using MicroPython language (see [Rpi Pico MicroPython documentation](https://www.raspberrypi.com/documentation/microcontrollers/micropython.html))  
