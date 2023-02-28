@@ -84,7 +84,7 @@ The microPython code used to drive all that is here.
 
 We make the choice to use a 2.5rps rotation speed. This allows to have a well controlled speed. A strong torke at this speed ensures a great confidence on the speed accuracy.
 
-The camera manufacturer as ... recommends to adjust the shutter translation speed to 12ms for the whole distance (36mm). This means 3m/s.
+We can see in the service manual of vintage cameras that curtain travel speed has to be set to about 3m/s (precisely to 14ms for 36mm translation) : [Pentax Spotmatic Service Manual](https://learncamerarepair.com/downloads/pdf/pentax-spotmatic-service.pdf)
 
 So we will build our wheel to get a rotating window with the same value for its linear speed
 
