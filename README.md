@@ -98,7 +98,7 @@ Conclusion : the wheel radius **R=191mm**
 
 The [wheel](design/Wheel.png) is designed using FreeCad 0.20.2 and built using 3D printing.  
 It has a central hub, 6 spokes and a rim made of 6 parts. Each part of the rim has 2 open windows.  
-11 of the windows are completely masked. The last one has an opening in it that simulated the camera shutters.  
+11 of the windows are completely masked. The last one has an opening in it that simulates the camera shutters.  
 In order to simulate a shutter speed of 1/1000th of a second, the distance between the two sides of the window shall be 3mm.
 
 ![simulated shutter](design/ShutterMask.png)
