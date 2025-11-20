@@ -25,8 +25,12 @@ Because the response time of an LED is very fast (about 10 nano seconds), it is 
   - Easy to control the pulse duration
   - Can differentiate a potential bias due to the electronic circuit from the bias due to geometrical consideration
 - The cons
-  - Does not take into account the physical phenomenos induced by a physical shutter.     
-
+  - Does not take into account the physical phenomenos induced by a physical shutter.
+  - In particular, the LED produces really sharp rising anf falling edges that are absolutely not representative of real worl shutters. Real world shutter have smooth egdges. For instance, the fastest leaf shutters take 1/200s to open and 1/200s to close. In case of focal plane shutters, even though the curtains are sharp, they are measured by a sensor wich is not a single point. In case of 3mm large sensor, the rizing edge is approximately 1/1000s and the same for the falling edge.
+ 
+## Conclusion  
+What maes the real world shutter difficult to measure is that the light signal has no sharp egdge, contrary to a LED that is simply switched on and off.  
+So, **using an LED to test a shutter tester does not brings any information on the accuracy of the tester**. 
 
 ## Schema  
 
@@ -59,6 +63,9 @@ Where
   - A lot of hardware to buy
   - A lot of hardware to control 
   - A lot of parts to 3D print
+ 
+## Conclusion
+A **rotating wheel** is a lot more complicated to build than simple LED circuit, but it **is mandatory to be a little bit reprensentative of a real world shutter**.  
   
 ## Schema
 We make the choice to control a wheel rotation using a stepper motor. The stepper motor has the advantage to be drivable very precisely, without any further regulation circuit. This stepper motor is controlled using an L298N board. This board is itself driven through the GPIO 14, 15, 16 and 17 of a Raspberry Pi Pico board.  
